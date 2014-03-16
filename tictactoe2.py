@@ -68,6 +68,7 @@ game.play()
 
 """Next steps:
 	-Create git repository and commit
+	-Push to remote repository
 	-Error checking on input (can't be out of bounds, can't be occupied
 	-TDD for python?
 	-Choose 1 or 2 players.  If choose one, play computer, otherwise play human
