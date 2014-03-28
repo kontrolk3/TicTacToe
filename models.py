@@ -1,5 +1,3 @@
-import random
-
 class TicTacToeBoard(object):
 	
 	def __init__(self):

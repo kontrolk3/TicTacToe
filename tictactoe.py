@@ -1,3 +1,6 @@
+from models import TicTacToeBoard
+import random
+
 class TicTacToeEngine(object):
 
 	def __init__(self):
@@ -26,8 +29,8 @@ class TicTacToeEngine(object):
 			
 		while True:
 			player_one.take_turn(board)
-			if self.game_over():
-				self.handle_game_over()
+			if self.game_over(board, player_one, player_two):
+				self.handle_game_over(player_one, player_two, num_players, ties)
 				if self.play_again():
 					board.clear()
 					continue
@@ -35,8 +38,8 @@ class TicTacToeEngine(object):
 					break
 			
 			player_two.take_turn(board)
-			if game_over():
-				handle_game_over()
+			if self.game_over(board, player_one, player_two):
+				handle_game_over(player_two, player_two, num_players, ties)
 				if play_again():
 					board.clear()
 					continue
@@ -44,14 +47,14 @@ class TicTacToeEngine(object):
 					break
 					
 	def game_over(self, board, player_one, player_two):
-		if self.board.has_won(self.player_one.token):
-			self.handle_player_won(self.player_one)
+		if board.has_won(player_one.token):
+			self.handle_player_won(player_one, board)
 			return True
-		elif self.board.has_won(self.player_two.token):
-			self.handle_player_won(self.player_two)
+		elif board.has_won(player_two.token):
+			self.handle_player_won(player_two)
 			return True
-		elif self.board.is_full():
-			self.board.display()
+		elif board.is_full():
+			board.display()
 			print "Tie game!"
 			ties += 1
 			return True
@@ -59,19 +62,18 @@ class TicTacToeEngine(object):
 			return False
 
 	def handle_player_won(self, player, board):
-		self.board.display()
-		print "%s has won!" % self.player.name
-		self.player.score += 1
+		board.display()
+		print "%s has won!" % player.name
+		player.score += 1
 		
-	def handle_game_over(self, player_one, player_two):
+	def handle_game_over(self, player_one, player_two, num_players, ties):
+		print "%s: %s" % (player_one.name, player_one.score)
 		if num_players == "1":
-			print "%s: %s" % (self.player_one.name, self.player_one.score)
-			print "Computer: %s" % self.player_two.score
-			print "Ties: %s" % ties
+			print "Computer: %s" % player_two.score
 		else:
-			print "%s: %s" % (self.player_one.name, self.player_one.score)
-			print "%s: %s" % (self.player_two.name, self.player_two.score)
-			print "Ties: %s" % ties
+			print "%s: %s" % (player_two.name, player_two.score)
+		print "Ties: %s" % ties
+
 
 	def play_again(self):
 		while True:

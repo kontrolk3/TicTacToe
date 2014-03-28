@@ -1,3 +1,5 @@
+from tictactoe import TicTacToeEngine
+
 def main():
     TicTacToeEngine()
 
